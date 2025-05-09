@@ -12,6 +12,7 @@ public class DefaultContext : DbContext
 
     public DefaultContext(DbContextOptions<DefaultContext> options) : base(options)
     {
+
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -20,6 +21,7 @@ public class DefaultContext : DbContext
         base.OnModelCreating(modelBuilder);
     }
 }
+
 public class YourDbContextFactory : IDesignTimeDbContextFactory<DefaultContext>
 {
     public DefaultContext CreateDbContext(string[] args)
@@ -30,12 +32,9 @@ public class YourDbContextFactory : IDesignTimeDbContextFactory<DefaultContext>
             .Build();
 
         var builder = new DbContextOptionsBuilder<DefaultContext>();
-        var connectionString = configuration.GetConnectionString("DefaultConnection");
+        var connectionString = configuration.GetConnectionString("LocalConnection");
 
-        builder.UseNpgsql(
-               connectionString,
-               b => b.MigrationsAssembly("Ambev.DeveloperEvaluation.WebApi")
-        );
+        builder.UseNpgsql(connectionString);
 
         return new DefaultContext(builder.Options);
     }

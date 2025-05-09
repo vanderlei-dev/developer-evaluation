@@ -84,3 +84,14 @@ This section includes links to the detailed documentation for the different API 
 This section describes the overall structure and organization of the project files and directories. 
 
 See [Project Structure](/.doc/project-structure.md)
+
+---
+
+# How to run
+
+Navigate to folder `template\backend\main` and run the following commands:
+
+```
+docker compose up -d
+dotnet ef database update --project src\Ambev.DeveloperEvaluation.ORM --startup-project src\Ambev.DeveloperEvaluation.WebApi
+```

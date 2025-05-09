@@ -1,6 +1,15 @@
-@Ambev.DeveloperEvaluation.WebApi_HostAddress = http://localhost:5119
+@Ambev.DeveloperEvaluation.WebApi_HostAddress = https://localhost:8081
 
-GET {{Ambev.DeveloperEvaluation.WebApi_HostAddress}}/weatherforecast/
-Accept: application/json
+POST {{Ambev.DeveloperEvaluation.WebApi_HostAddress}}/api/users
+Content-Type: application/json
+
+{
+  "username": "user123",
+  "password": "Test@123",
+  "phone": "11999998888",
+  "email": "user123@gmail.com",
+  "status": 1,
+  "role": 1
+}
 
 ###
