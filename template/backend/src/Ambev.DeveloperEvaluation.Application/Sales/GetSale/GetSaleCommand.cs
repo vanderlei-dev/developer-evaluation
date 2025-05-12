@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
+namespace Ambev.DeveloperEvaluation.Application.Sales.GetSale;
 
 /// <summary>
 /// Represents a request to get a sale from the system.

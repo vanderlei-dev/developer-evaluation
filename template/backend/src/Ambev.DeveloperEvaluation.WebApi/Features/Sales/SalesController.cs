@@ -6,8 +6,11 @@ using Ambev.DeveloperEvaluation.WebApi.Features.Users.CreateUser;
 using Ambev.DeveloperEvaluation.WebApi.Features.Users.GetUser;
 using Ambev.DeveloperEvaluation.Application.Sales;
 using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
+using Ambev.DeveloperEvaluation.Application.Sales.GetSale;
+using Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
+using Ambev.DeveloperEvaluation.Application.Sales.DeleteSale;
 
-namespace Ambev.DeveloperEvaluation.WebApi.Features.Users;
+namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales;
 
 /// <summary>
 /// Controller for managing sale operations.
@@ -86,7 +89,7 @@ public class SalesController : BaseController
     /// <param name="request">The sale request.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The updated sale details.</returns>
-    [HttpPost("{id}")]
+    [HttpPut("{id}")]
     [ProducesResponseType(typeof(ApiResponseWithData<CreateUserResponse>), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> UpdateSale([FromRoute] Guid id, [FromBody] SaleDto request, CancellationToken cancellationToken)

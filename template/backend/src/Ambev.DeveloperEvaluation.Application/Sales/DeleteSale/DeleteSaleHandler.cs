@@ -3,25 +3,22 @@ using MediatR;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 
-namespace Ambev.DeveloperEvaluation.Application.Sales.GetSale;
+namespace Ambev.DeveloperEvaluation.Application.Sales.DeleteSale;
 
 /// <summary>
 /// Handler for processing the <see cref="DeleteSaleHandler"/> requests.
 /// </summary>
 public class DeleteSaleHandler : IRequestHandler<DeleteSaleCommand, bool>
 {
-    private readonly ISaleRepository _repository;
-    private readonly IMapper _mapper;
+    private readonly ISaleRepository _repository;    
 
     /// <summary>
     /// Initializes a new instance of <see cref="DeleteSaleCommand"/>.
     /// </summary>
-    /// <param name="repository">The sale repository</param>
-    /// <param name="mapper">The AutoMapper instance</param>    
-    public DeleteSaleHandler(ISaleRepository repository, IMapper mapper)
+    /// <param name="repository">The sale repository</param>    
+    public DeleteSaleHandler(ISaleRepository repository)
     {
-        _repository = repository;
-        _mapper = mapper;        
+        _repository = repository;        
     }
 
     /// <summary>

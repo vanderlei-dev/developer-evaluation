@@ -1,10 +1,8 @@
 using Ambev.DeveloperEvaluation.Application.Sales;
-using Bogus;
 using FluentValidation.TestHelper;
-using Microsoft.AspNetCore.Routing;
 using Xunit;
 
-namespace Ambev.DeveloperEvaluation.Unit.Application;
+namespace Ambev.DeveloperEvaluation.Unit.Application.Sales.Validator;
 
 /// <summary>
 /// Contains unit tests for the <see cref="SaleItemDtoValidator"/> class.
