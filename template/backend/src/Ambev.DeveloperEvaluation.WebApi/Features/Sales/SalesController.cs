@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using AutoMapper;
 using Ambev.DeveloperEvaluation.WebApi.Common;
 using Ambev.DeveloperEvaluation.WebApi.Features.Users.CreateUser;
 using Ambev.DeveloperEvaluation.WebApi.Features.Users.GetUser;
@@ -19,18 +18,16 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales;
 [Route("api/[controller]")]
 public class SalesController : BaseController
 {
-    private readonly IMediator _mediator;
-    private readonly IMapper _mapper;
+    private readonly IMediator _mediator;    
 
     /// <summary>
     /// Initializes a new instance of SalesController.
     /// </summary>
     /// <param name="mediator">The mediator instance.</param>
     /// <param name="mapper">The AutoMapper instance.</param>
-    public SalesController(IMediator mediator, IMapper mapper)
+    public SalesController(IMediator mediator)
     {
-        _mediator = mediator;
-        _mapper = mapper;
+        _mediator = mediator;        
     }
 
     /// <summary>
@@ -56,7 +53,7 @@ public class SalesController : BaseController
         {
             Success = true,
             Message = "Sale created successfully",
-            Data = _mapper.Map<SaleDto>(response)
+            Data = response
         });
     }
 
@@ -74,12 +71,7 @@ public class SalesController : BaseController
     {
         var response = await _mediator.Send(new GetSaleCommand(id), cancellationToken);
 
-        return Ok(new ApiResponseWithData<SaleDto>
-        {
-            Success = true,
-            Message = "Sale retrieved successfully",
-            Data = _mapper.Map<SaleDto>(response)
-        });
+        return Ok(response);
     }
 
     /// <summary>
@@ -92,6 +84,7 @@ public class SalesController : BaseController
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(ApiResponseWithData<CreateUserResponse>), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateSale([FromRoute] Guid id, [FromBody] SaleDto request, CancellationToken cancellationToken)
     {
         request.Id = id;
@@ -104,12 +97,7 @@ public class SalesController : BaseController
 
         var response = await _mediator.Send(new UpdateSaleCommand(request), cancellationToken);
 
-        return Created(string.Empty, new ApiResponseWithData<SaleDto>
-        {
-            Success = true,
-            Message = "Sale updated successfully",
-            Data = _mapper.Map<SaleDto>(response)
-        });
+        return Ok(response);
     }
 
     /// <summary>
@@ -117,7 +105,7 @@ public class SalesController : BaseController
     /// </summary>
     /// <param name="id">The unique identifier of the user to delete</param>
     /// <param name="cancellationToken">Cancellation token</param>
-    /// <returns>Success response if the user was deleted</returns>
+    /// <returns>Success response if the sale was deleted</returns>
     [HttpDelete("{id}")]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
@@ -126,10 +114,6 @@ public class SalesController : BaseController
     {
         var response = await _mediator.Send(new DeleteSaleCommand(id), cancellationToken);
 
-        return Ok(new ApiResponse
-        {
-            Success = true,
-            Message = "Sale deleted successfully"
-        });
+        return Ok();
     }
 }

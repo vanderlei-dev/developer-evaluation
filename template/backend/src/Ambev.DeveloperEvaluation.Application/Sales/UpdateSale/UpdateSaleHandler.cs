@@ -43,6 +43,7 @@ public class UpdateSaleHandler : IRequestHandler<UpdateSaleCommand, SaleDto>
 
         updatedSale.CalculateTotal();
         updatedSale.CheckCancelledItems();
+        updatedSale.Update();
 
         await _repository.UpdateAsync(updatedSale, cancellationToken);
 

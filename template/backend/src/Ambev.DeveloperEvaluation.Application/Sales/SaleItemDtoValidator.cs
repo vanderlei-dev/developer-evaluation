@@ -9,6 +9,9 @@ public class SaleItemDtoValidator : AbstractValidator<SaleItemDto>
     /// </summary>  
     public SaleItemDtoValidator()
     {
+        RuleFor(x => x.ProductId).NotEmpty();
+        RuleFor(x => x.UnitPrice).NotEmpty();        
+
         RuleFor(x => x.Quantity)
             .LessThanOrEqualTo(20)
             .WithMessage("Invalid quantity, maximum allowed: 20");

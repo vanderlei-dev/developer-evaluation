@@ -32,8 +32,7 @@ public class Sale: BaseEntity
         foreach (var item in Items)
         {
             item.Discount = CalculateDiscount(item.Quantity);
-
-            item.Total = item.Quantity * (item.UnitPrice - item.UnitPrice * item.Discount);
+            item.Total = Math.Round(item.Quantity * (item.UnitPrice - item.UnitPrice * item.Discount), 2);
 
             if (!item.Cancelled)
                 Total += item.Total;
@@ -54,5 +53,10 @@ public class Sale: BaseEntity
     public void CheckCancelledItems()
     {
         Cancelled = Items.All(x => x.Cancelled);
+    }
+
+    public void Update()
+    {
+        UpdatedAt = DateTime.UtcNow;
     }
 }

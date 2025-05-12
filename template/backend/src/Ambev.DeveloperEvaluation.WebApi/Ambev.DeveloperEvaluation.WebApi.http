@@ -1,15 +1,38 @@
 @Ambev.DeveloperEvaluation.WebApi_HostAddress = https://localhost:8081
 
-POST {{Ambev.DeveloperEvaluation.WebApi_HostAddress}}/api/users
+# Create Sale
+POST {{Ambev.DeveloperEvaluation.WebApi_HostAddress}}/api/sales
 Content-Type: application/json
 
 {
-  "username": "user123",
-  "password": "Test@123",
-  "phone": "11999998888",
-  "email": "user123@gmail.com",
-  "status": 1,
-  "role": 1
+  "number": "123456",
+  "userId": "3e9bb5ce-9498-4a2b-b0ee-b11d502c894d",
+  "branchId": "1acb93bf-531b-4df9-825a-e5f3252ce229",
+  "items": [
+    {
+      "productId": "18ee55d5-7e86-4a48-a42d-9763b34fabbe",
+      "quantity": 1,
+      "unitPrice": 5.00      
+    },
+    {
+      "productId": "919529a7-5ca1-4932-8c41-18a8fadc8ec7",
+      "quantity": 4,
+      "unitPrice": 3.50      
+    },
+    {
+      "productId": "a5df1027-3bcd-4e76-b869-4da9057bad18",
+      "quantity": 20,
+      "unitPrice": 2.50      
+    },
+    {
+      "productId": "4e4e9102-3faf-415a-8ffc-bf7226c151bf",
+      "quantity": 1,
+      "unitPrice": 1.50,
+      "discount": 0,
+      "cancelled": true
+    }
+  ]
 }
+
 
 ###

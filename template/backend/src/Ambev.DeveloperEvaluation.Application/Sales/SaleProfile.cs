@@ -13,7 +13,10 @@ public class SaleProfile : Profile
     /// </summary>
     public SaleProfile()
     {
-        CreateMap<SaleDto, Sale>();                        
+        CreateMap<SaleDto, Sale>()
+            .ForPath(x => x.CreatedAt, x => x.Ignore())
+            .ForPath(x => x.UpdatedAt, x => x.Ignore());
+
         CreateMap<Sale, SaleDto>();
 
         CreateMap<SaleItemDto, SaleItem>();

@@ -8,6 +8,7 @@ using Ambev.DeveloperEvaluation.ORM;
 using Ambev.DeveloperEvaluation.WebApi.Middleware;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Serilog;
 
 namespace Ambev.DeveloperEvaluation.WebApi;
@@ -67,8 +68,14 @@ public class Program
             app.UseAuthorization();
 
             app.UseBasicHealthChecks();
-
             app.MapControllers();
+
+            // Executes the EF migration once the apps starts, in a real production app this should be replace by a deploy pipeline
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<DefaultContext>();
+                db.Database.Migrate();
+            }
 
             app.Run();
         }
