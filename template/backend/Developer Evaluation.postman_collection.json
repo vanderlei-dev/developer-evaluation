@@ -1,0 +1,614 @@
+{
+	"info": {
+		"_postman_id": "742292cc-1fce-45fa-a681-d0a8a20f1db9",
+		"name": "Developer Evaluation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24853857"
+	},
+	"item": [
+		{
+			"name": "Create Sale - Invalid Discount and Quantity",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 400\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains error for each item\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData).to.be.an('array').that.is.not.empty;\r",
+							"\r",
+							"    pm.expect(responseData[0].propertyName).to.eql(\"Items[0].Discount\");\r",
+							"    pm.expect(responseData[1].propertyName).to.eql(\"Items[1].Discount\");\r",
+							"    pm.expect(responseData[2].propertyName).to.eql(\"Items[2].Discount\");\r",
+							"    pm.expect(responseData[3].propertyName).to.eql(\"Items[3].Quantity\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"number\": \"123456\",\r\n  \"userId\": \"3e9bb5ce-9498-4a2b-b0ee-b11d502c894d\",\r\n  \"branchId\": \"1acb93bf-531b-4df9-825a-e5f3252ce229\",\r\n  \"items\": [\r\n    {\r\n      \"productId\": \"18ee55d5-7e86-4a48-a42d-9763b34fabbe\",\r\n      \"quantity\": 1,\r\n      \"unitPrice\": 3.9,\r\n      \"discount\": 0.1\r\n    },\r\n    {\r\n      \"productId\": \"919529a7-5ca1-4932-8c41-18a8fadc8ec7\",\r\n      \"quantity\": 4,\r\n      \"unitPrice\": 3.5,\r\n      \"discount\": 0.2\r\n    },\r\n    {\r\n      \"productId\": \"a5df1027-3bcd-4e76-b869-4da9057bad18\",\r\n      \"quantity\": 20,\r\n      \"unitPrice\": 4.99,\r\n      \"discount\": 0.3\r\n    },\r\n    {\r\n      \"productId\": \"4e4e9102-3faf-415a-8ffc-bf7226c151bf\",\r\n      \"quantity\": 21,\r\n      \"unitPrice\": 2.5,\r\n      \"discount\": 0.2\r\n    }   \r\n  ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8081/api/Sales",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"Sales"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'POST' \\\r\n  'https://localhost:8081/api/Sales' \\\r\n  -H 'accept: text/plain' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"number\": \"123456\",\r\n  \"userId\": \"3e9bb5ce-9498-4a2b-b0ee-b11d502c894d\",\r\n  \"branchId\": \"1acb93bf-531b-4df9-825a-e5f3252ce229\",\r\n  \"items\": [\r\n    {\r\n      \"productId\": \"18ee55d5-7e86-4a48-a42d-9763b34fabbe\",\r\n      \"quantity\": 1,\r\n      \"unitPrice\": 3.9,\r\n      \"discount\": 0.1\r\n    },\r\n    {\r\n      \"productId\": \"919529a7-5ca1-4932-8c41-18a8fadc8ec7\",\r\n      \"quantity\": 4,\r\n      \"unitPrice\": 3.5,\r\n      \"discount\": 0.2\r\n    },\r\n    {\r\n      \"productId\": \"a5df1027-3bcd-4e76-b869-4da9057bad18\",\r\n      \"quantity\": 20,\r\n      \"unitPrice\": 4.99,\r\n      \"discount\": 0.3\r\n    },\r\n    {\r\n      \"productId\": \"4e4e9102-3faf-415a-8ffc-bf7226c151bf\",\r\n      \"quantity\": 21,\r\n      \"unitPrice\": 2.5,\r\n      \"discount\": 0.2\r\n    }\r\n  ]\r\n}\r\n'"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Sale - Invalid Duplicate Product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 400\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains error for items array\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData).to.be.an('array').that.is.not.empty;\r",
+							"\r",
+							"    pm.expect(responseData[0].propertyName).to.eql(\"Items\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"number\": \"123456\",\r\n  \"userId\": \"3e9bb5ce-9498-4a2b-b0ee-b11d502c894d\",\r\n  \"branchId\": \"1acb93bf-531b-4df9-825a-e5f3252ce229\",\r\n  \"items\": [\r\n    {\r\n      \"productId\": \"4e4e9102-3faf-415a-8ffc-bf7226c151bf\",\r\n      \"quantity\": 1,\r\n      \"unitPrice\": 1.5,\r\n      \"discount\": 0\r\n    },\r\n        {\r\n      \"productId\": \"4e4e9102-3faf-415a-8ffc-bf7226c151bf\",\r\n      \"quantity\": 1,\r\n      \"unitPrice\": 1.5,\r\n      \"discount\": 0\r\n    } \r\n  ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8081/api/Sales",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"Sales"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'POST' \\\r\n  'https://localhost:8081/api/Sales' \\\r\n  -H 'accept: text/plain' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"number\": \"123456\",\r\n  \"userId\": \"3e9bb5ce-9498-4a2b-b0ee-b11d502c894d\",\r\n  \"branchId\": \"1acb93bf-531b-4df9-825a-e5f3252ce229\",\r\n  \"items\": [\r\n    {\r\n      \"productId\": \"18ee55d5-7e86-4a48-a42d-9763b34fabbe\",\r\n      \"quantity\": 1,\r\n      \"unitPrice\": 3.9,\r\n      \"discount\": 0.1\r\n    },\r\n    {\r\n      \"productId\": \"919529a7-5ca1-4932-8c41-18a8fadc8ec7\",\r\n      \"quantity\": 4,\r\n      \"unitPrice\": 3.5,\r\n      \"discount\": 0.2\r\n    },\r\n    {\r\n      \"productId\": \"a5df1027-3bcd-4e76-b869-4da9057bad18\",\r\n      \"quantity\": 20,\r\n      \"unitPrice\": 4.99,\r\n      \"discount\": 0.3\r\n    },\r\n    {\r\n      \"productId\": \"4e4e9102-3faf-415a-8ffc-bf7226c151bf\",\r\n      \"quantity\": 21,\r\n      \"unitPrice\": 2.5,\r\n      \"discount\": 0.2\r\n    }\r\n  ]\r\n}\r\n'"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Sale - Valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 201\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(201);\r",
+							"});\r",
+							"\r",
+							"const responseData = pm.response.json().data;\r",
+							"\r",
+							"pm.test(\"Response contains correct total\", function () {        \r",
+							"    pm.expect(responseData.total).to.be.eq(57.60);    \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response items contains correct total and discount values\", function () {\r",
+							"        \r",
+							"    pm.expect(responseData.items[0].discount).to.be.eq(0.00);\r",
+							"    pm.expect(responseData.items[0].total).to.be.eq(5.00);\r",
+							"\r",
+							"    pm.expect(responseData.items[1].discount).to.be.eq(0.10);    \r",
+							"    pm.expect(responseData.items[1].total).to.be.eq(12.60);    \r",
+							"\r",
+							"    pm.expect(responseData.items[2].discount).to.be.eq(0.20);\r",
+							"    pm.expect(responseData.items[2].total).to.be.eq(40);\r",
+							"\r",
+							"    pm.expect(responseData.items[3].discount).to.be.eq(0);\r",
+							"    pm.expect(responseData.items[3].total).to.be.eq(1.50);\r",
+							"});\r",
+							"\r",
+							"// Extract and store the sale id in a collection variable for UPDATE/GET/DELETE requests\r",
+							"var id = pm.response.json().data.id;\r",
+							"pm.collectionVariables.set(\"saleId\", id);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"number\": \"123456\",\r\n  \"userId\": \"3e9bb5ce-9498-4a2b-b0ee-b11d502c894d\",\r\n  \"branchId\": \"1acb93bf-531b-4df9-825a-e5f3252ce229\",\r\n  \"items\": [\r\n    {\r\n      \"productId\": \"18ee55d5-7e86-4a48-a42d-9763b34fabbe\",\r\n      \"quantity\": 1,\r\n      \"unitPrice\": 5.00      \r\n    },\r\n    {\r\n      \"productId\": \"919529a7-5ca1-4932-8c41-18a8fadc8ec7\",\r\n      \"quantity\": 4,\r\n      \"unitPrice\": 3.50      \r\n    },\r\n    {\r\n      \"productId\": \"a5df1027-3bcd-4e76-b869-4da9057bad18\",\r\n      \"quantity\": 20,\r\n      \"unitPrice\": 2.50      \r\n    },\r\n    {\r\n      \"productId\": \"4e4e9102-3faf-415a-8ffc-bf7226c151bf\",\r\n      \"quantity\": 1,\r\n      \"unitPrice\": 1.50,\r\n      \"discount\": 0,\r\n      \"cancelled\": true\r\n    }\r\n  ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8081/api/Sales",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"Sales"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'POST' \\\r\n  'https://localhost:8081/api/Sales' \\\r\n  -H 'accept: text/plain' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"number\": \"123456\",\r\n  \"userId\": \"3e9bb5ce-9498-4a2b-b0ee-b11d502c894d\",\r\n  \"branchId\": \"1acb93bf-531b-4df9-825a-e5f3252ce229\",\r\n  \"items\": [\r\n    {\r\n      \"productId\": \"18ee55d5-7e86-4a48-a42d-9763b34fabbe\",\r\n      \"quantity\": 1,\r\n      \"unitPrice\": 3.9,\r\n      \"discount\": 0.1\r\n    },\r\n    {\r\n      \"productId\": \"919529a7-5ca1-4932-8c41-18a8fadc8ec7\",\r\n      \"quantity\": 4,\r\n      \"unitPrice\": 3.5,\r\n      \"discount\": 0.2\r\n    },\r\n    {\r\n      \"productId\": \"a5df1027-3bcd-4e76-b869-4da9057bad18\",\r\n      \"quantity\": 20,\r\n      \"unitPrice\": 4.99,\r\n      \"discount\": 0.3\r\n    },\r\n    {\r\n      \"productId\": \"4e4e9102-3faf-415a-8ffc-bf7226c151bf\",\r\n      \"quantity\": 21,\r\n      \"unitPrice\": 2.5,\r\n      \"discount\": 0.2\r\n    }\r\n  ]\r\n}\r\n'"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Sale - Valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"const responseData = pm.response.json().data;\r",
+							"\r",
+							"pm.test(\"Response contains correct total\", function () {        \r",
+							"    pm.expect(responseData.total).to.be.eq(45.75);    \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response items contains correct total and discount values\", function () {\r",
+							"        \r",
+							"    pm.expect(responseData.items[0].discount).to.be.eq(0.00);\r",
+							"    pm.expect(responseData.items[0].total).to.be.eq(10.00);\r",
+							"\r",
+							"    pm.expect(responseData.items[1].discount).to.be.eq(0.10);    \r",
+							"    pm.expect(responseData.items[1].total).to.be.eq(15.75);    \r",
+							"\r",
+							"    pm.expect(responseData.items[2].discount).to.be.eq(0.20);\r",
+							"    pm.expect(responseData.items[2].total).to.be.eq(20);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"number\": \"123456\",\r\n  \"userId\": \"3e9bb5ce-9498-4a2b-b0ee-b11d502c894d\",\r\n  \"branchId\": \"1acb93bf-531b-4df9-825a-e5f3252ce229\",\r\n  \"items\": [\r\n    {\r\n      \"productId\": \"18ee55d5-7e86-4a48-a42d-9763b34fabbe\",\r\n      \"quantity\": 2,\r\n      \"unitPrice\": 5.00      \r\n    },\r\n    {\r\n      \"productId\": \"919529a7-5ca1-4932-8c41-18a8fadc8ec7\",\r\n      \"quantity\": 5,\r\n      \"unitPrice\": 3.50      \r\n    },\r\n    {\r\n      \"productId\": \"a5df1027-3bcd-4e76-b869-4da9057bad18\",\r\n      \"quantity\": 10,\r\n      \"unitPrice\": 2.50      \r\n    }\r\n  ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8081/api/Sales/:id",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"Sales",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{saleId}}"
+						}
+					]
+				},
+				"description": "Generated from cURL: curl -X 'POST' \\\r\n  'https://localhost:8081/api/Sales' \\\r\n  -H 'accept: text/plain' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"number\": \"123456\",\r\n  \"userId\": \"3e9bb5ce-9498-4a2b-b0ee-b11d502c894d\",\r\n  \"branchId\": \"1acb93bf-531b-4df9-825a-e5f3252ce229\",\r\n  \"items\": [\r\n    {\r\n      \"productId\": \"18ee55d5-7e86-4a48-a42d-9763b34fabbe\",\r\n      \"quantity\": 1,\r\n      \"unitPrice\": 3.9,\r\n      \"discount\": 0.1\r\n    },\r\n    {\r\n      \"productId\": \"919529a7-5ca1-4932-8c41-18a8fadc8ec7\",\r\n      \"quantity\": 4,\r\n      \"unitPrice\": 3.5,\r\n      \"discount\": 0.2\r\n    },\r\n    {\r\n      \"productId\": \"a5df1027-3bcd-4e76-b869-4da9057bad18\",\r\n      \"quantity\": 20,\r\n      \"unitPrice\": 4.99,\r\n      \"discount\": 0.3\r\n    },\r\n    {\r\n      \"productId\": \"4e4e9102-3faf-415a-8ffc-bf7226c151bf\",\r\n      \"quantity\": 21,\r\n      \"unitPrice\": 2.5,\r\n      \"discount\": 0.2\r\n    }\r\n  ]\r\n}\r\n'"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Sale - Invalid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 404\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(404);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"number\": \"123456\",\r\n  \"userId\": \"3e9bb5ce-9498-4a2b-b0ee-b11d502c894d\",\r\n  \"branchId\": \"1acb93bf-531b-4df9-825a-e5f3252ce229\",\r\n  \"items\": [\r\n    {\r\n      \"productId\": \"18ee55d5-7e86-4a48-a42d-9763b34fabbe\",\r\n      \"quantity\": 2,\r\n      \"unitPrice\": 5.00      \r\n    },\r\n    {\r\n      \"productId\": \"919529a7-5ca1-4932-8c41-18a8fadc8ec7\",\r\n      \"quantity\": 5,\r\n      \"unitPrice\": 3.50      \r\n    },\r\n    {\r\n      \"productId\": \"a5df1027-3bcd-4e76-b869-4da9057bad18\",\r\n      \"quantity\": 10,\r\n      \"unitPrice\": 2.50      \r\n    }\r\n  ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8081/api/Sales/:id",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"Sales",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "ceac982f-af4e-4783-853e-3058a916eadd"
+						}
+					]
+				},
+				"description": "Generated from cURL: curl -X 'POST' \\\r\n  'https://localhost:8081/api/Sales' \\\r\n  -H 'accept: text/plain' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"number\": \"123456\",\r\n  \"userId\": \"3e9bb5ce-9498-4a2b-b0ee-b11d502c894d\",\r\n  \"branchId\": \"1acb93bf-531b-4df9-825a-e5f3252ce229\",\r\n  \"items\": [\r\n    {\r\n      \"productId\": \"18ee55d5-7e86-4a48-a42d-9763b34fabbe\",\r\n      \"quantity\": 1,\r\n      \"unitPrice\": 3.9,\r\n      \"discount\": 0.1\r\n    },\r\n    {\r\n      \"productId\": \"919529a7-5ca1-4932-8c41-18a8fadc8ec7\",\r\n      \"quantity\": 4,\r\n      \"unitPrice\": 3.5,\r\n      \"discount\": 0.2\r\n    },\r\n    {\r\n      \"productId\": \"a5df1027-3bcd-4e76-b869-4da9057bad18\",\r\n      \"quantity\": 20,\r\n      \"unitPrice\": 4.99,\r\n      \"discount\": 0.3\r\n    },\r\n    {\r\n      \"productId\": \"4e4e9102-3faf-415a-8ffc-bf7226c151bf\",\r\n      \"quantity\": 21,\r\n      \"unitPrice\": 2.5,\r\n      \"discount\": 0.2\r\n    }\r\n  ]\r\n}\r\n'"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Sale - Valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8081/api/Sales/:id",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"Sales",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{saleId}}"
+						}
+					]
+				},
+				"description": "Generated from cURL: curl -X 'POST' \\\r\n  'https://localhost:8081/api/Sales' \\\r\n  -H 'accept: text/plain' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"number\": \"123456\",\r\n  \"userId\": \"3e9bb5ce-9498-4a2b-b0ee-b11d502c894d\",\r\n  \"branchId\": \"1acb93bf-531b-4df9-825a-e5f3252ce229\",\r\n  \"items\": [\r\n    {\r\n      \"productId\": \"18ee55d5-7e86-4a48-a42d-9763b34fabbe\",\r\n      \"quantity\": 1,\r\n      \"unitPrice\": 3.9,\r\n      \"discount\": 0.1\r\n    },\r\n    {\r\n      \"productId\": \"919529a7-5ca1-4932-8c41-18a8fadc8ec7\",\r\n      \"quantity\": 4,\r\n      \"unitPrice\": 3.5,\r\n      \"discount\": 0.2\r\n    },\r\n    {\r\n      \"productId\": \"a5df1027-3bcd-4e76-b869-4da9057bad18\",\r\n      \"quantity\": 20,\r\n      \"unitPrice\": 4.99,\r\n      \"discount\": 0.3\r\n    },\r\n    {\r\n      \"productId\": \"4e4e9102-3faf-415a-8ffc-bf7226c151bf\",\r\n      \"quantity\": 21,\r\n      \"unitPrice\": 2.5,\r\n      \"discount\": 0.2\r\n    }\r\n  ]\r\n}\r\n'"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Sale - Invalid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 404\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(404);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8081/api/Sales/:id",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"Sales",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "ceac982f-af4e-4783-853e-3058a916eadd"
+						}
+					]
+				},
+				"description": "Generated from cURL: curl -X 'POST' \\\r\n  'https://localhost:8081/api/Sales' \\\r\n  -H 'accept: text/plain' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"number\": \"123456\",\r\n  \"userId\": \"3e9bb5ce-9498-4a2b-b0ee-b11d502c894d\",\r\n  \"branchId\": \"1acb93bf-531b-4df9-825a-e5f3252ce229\",\r\n  \"items\": [\r\n    {\r\n      \"productId\": \"18ee55d5-7e86-4a48-a42d-9763b34fabbe\",\r\n      \"quantity\": 1,\r\n      \"unitPrice\": 3.9,\r\n      \"discount\": 0.1\r\n    },\r\n    {\r\n      \"productId\": \"919529a7-5ca1-4932-8c41-18a8fadc8ec7\",\r\n      \"quantity\": 4,\r\n      \"unitPrice\": 3.5,\r\n      \"discount\": 0.2\r\n    },\r\n    {\r\n      \"productId\": \"a5df1027-3bcd-4e76-b869-4da9057bad18\",\r\n      \"quantity\": 20,\r\n      \"unitPrice\": 4.99,\r\n      \"discount\": 0.3\r\n    },\r\n    {\r\n      \"productId\": \"4e4e9102-3faf-415a-8ffc-bf7226c151bf\",\r\n      \"quantity\": 21,\r\n      \"unitPrice\": 2.5,\r\n      \"discount\": 0.2\r\n    }\r\n  ]\r\n}\r\n'"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Sale - Invalid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 404\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(404);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8081/api/Sales/:id",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"Sales",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "ceac982f-af4e-4783-853e-3058a916eadd"
+						}
+					]
+				},
+				"description": "Generated from cURL: curl -X 'POST' \\\r\n  'https://localhost:8081/api/Sales' \\\r\n  -H 'accept: text/plain' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"number\": \"123456\",\r\n  \"userId\": \"3e9bb5ce-9498-4a2b-b0ee-b11d502c894d\",\r\n  \"branchId\": \"1acb93bf-531b-4df9-825a-e5f3252ce229\",\r\n  \"items\": [\r\n    {\r\n      \"productId\": \"18ee55d5-7e86-4a48-a42d-9763b34fabbe\",\r\n      \"quantity\": 1,\r\n      \"unitPrice\": 3.9,\r\n      \"discount\": 0.1\r\n    },\r\n    {\r\n      \"productId\": \"919529a7-5ca1-4932-8c41-18a8fadc8ec7\",\r\n      \"quantity\": 4,\r\n      \"unitPrice\": 3.5,\r\n      \"discount\": 0.2\r\n    },\r\n    {\r\n      \"productId\": \"a5df1027-3bcd-4e76-b869-4da9057bad18\",\r\n      \"quantity\": 20,\r\n      \"unitPrice\": 4.99,\r\n      \"discount\": 0.3\r\n    },\r\n    {\r\n      \"productId\": \"4e4e9102-3faf-415a-8ffc-bf7226c151bf\",\r\n      \"quantity\": 21,\r\n      \"unitPrice\": 2.5,\r\n      \"discount\": 0.2\r\n    }\r\n  ]\r\n}\r\n'"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Sale - Valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8081/api/Sales/:id",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"Sales",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{saleId}}"
+						}
+					]
+				},
+				"description": "Generated from cURL: curl -X 'POST' \\\r\n  'https://localhost:8081/api/Sales' \\\r\n  -H 'accept: text/plain' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"number\": \"123456\",\r\n  \"userId\": \"3e9bb5ce-9498-4a2b-b0ee-b11d502c894d\",\r\n  \"branchId\": \"1acb93bf-531b-4df9-825a-e5f3252ce229\",\r\n  \"items\": [\r\n    {\r\n      \"productId\": \"18ee55d5-7e86-4a48-a42d-9763b34fabbe\",\r\n      \"quantity\": 1,\r\n      \"unitPrice\": 3.9,\r\n      \"discount\": 0.1\r\n    },\r\n    {\r\n      \"productId\": \"919529a7-5ca1-4932-8c41-18a8fadc8ec7\",\r\n      \"quantity\": 4,\r\n      \"unitPrice\": 3.5,\r\n      \"discount\": 0.2\r\n    },\r\n    {\r\n      \"productId\": \"a5df1027-3bcd-4e76-b869-4da9057bad18\",\r\n      \"quantity\": 20,\r\n      \"unitPrice\": 4.99,\r\n      \"discount\": 0.3\r\n    },\r\n    {\r\n      \"productId\": \"4e4e9102-3faf-415a-8ffc-bf7226c151bf\",\r\n      \"quantity\": 21,\r\n      \"unitPrice\": 2.5,\r\n      \"discount\": 0.2\r\n    }\r\n  ]\r\n}\r\n'"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "firstProductId",
+			"value": ""
+		},
+		{
+			"key": "saleId",
+			"value": ""
+		}
+	]
+}
